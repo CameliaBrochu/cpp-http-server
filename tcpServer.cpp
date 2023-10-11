@@ -21,8 +21,9 @@ namespace cpp_http_server{
 
         this->socketAddr.sin_family = AF_INET;
         this->socketAddr.sin_port = 8080;
+        this->socketAddr.sin_addr.s_addr = inet_addr("0.0.0.0");
 
-        err = bind(this->tcpSocket, (sockaddr *)&(this->socketAddr), 0);
+        err = bind(this->tcpSocket, (sockaddr *)&(this->socketAddr), sizeof(this->socketAddr));
 
         if(err < 0){
             exitWithError("Cannot connect socket to address");
