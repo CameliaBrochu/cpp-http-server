@@ -16,10 +16,11 @@ namespace cpp_http_server{
         SOCKET tcpSocket{};
         SOCKET currentSocket{};
         sockaddr_in socketAddr{};
+        int socketAddrLen = 0;
         std::string serverMessage{};
 
         void acceptConnection();
-        std::string buildResponse();
+        static std::string buildResponse();
         void sendResponse();
         static void log(const std::string &message);
         static void exitWithError(const std::string &error);

@@ -25,6 +25,8 @@ namespace cpp_http_server{
         this->socketAddr.sin_family = AF_INET;
         this->socketAddr.sin_port = 8080;
         this->socketAddr.sin_addr.s_addr = inet_addr("0.0.0.0");
+        this->socketAddrLen = sizeof(this->socketAddr);
+        this->serverMessage = buildResponse();
 
         err = bind(this->tcpSocket, (sockaddr*)&(this->socketAddr), sizeof(this->socketAddr));
 
@@ -75,7 +77,7 @@ namespace cpp_http_server{
     }
 
     void TcpServer::acceptConnection() {
-        currentSocket = accept(this->tcpSocket,(sockaddr*)&(this->socketAddr), (int*)sizeof(this->socketAddr));
+        currentSocket = accept(this->tcpSocket,(sockaddr*)&(this->socketAddr), &this->socketAddrLen);
 
         if(currentSocket == INVALID_SOCKET){
             std::ostringstream ss;
