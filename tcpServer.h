@@ -9,12 +9,18 @@ namespace cpp_http_server{
     public:
         TcpServer();
         ~TcpServer();
+
+        [[noreturn]] void startListen();
+
     private:
         SOCKET tcpSocket{};
+        SOCKET currentSocket{};
         sockaddr_in socketAddr{};
+        std::string serverMessage{};
 
-        void startListen();
         void acceptConnection();
+        std::string buildResponse();
+        void sendResponse();
         static void log(const std::string &message);
         static void exitWithError(const std::string &error);
     };
